@@ -27,6 +27,7 @@ collections:
         label: "General"
         file: "content/settings.json"
         fields:
+          - { label: "Logo (upload a new image to change it)", name: "logo", widget: "image", required: false }
           - { label: "Hero Headline", name: "heroTitle", widget: "string" }
           - { label: "Hero Subtext", name: "heroSubtitle", widget: "text" }
           - { label: "About Heading", name: "aboutTitle", widget: "string" }

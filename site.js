@@ -66,6 +66,10 @@
 
   function applySettings(s) {
     if (!s) return;
+    if (s.logo) {
+      var logos = document.querySelectorAll(".brand-logo");
+      for (var i = 0; i < logos.length; i++) { logos[i].src = s.logo; }
+    }
     if (s.heroTitle) document.getElementById("heroTitle").textContent = s.heroTitle;
     if (s.heroSubtitle) document.getElementById("heroSubtitle").textContent = s.heroSubtitle;
     if (s.aboutTitle) document.getElementById("aboutTitle").textContent = s.aboutTitle;
