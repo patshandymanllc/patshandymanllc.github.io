@@ -1,0 +1,69 @@
+# Decap CMS configuration — Pat's Handyman LLC
+# Pat edits content at https://patshandymanllc.info/admin (logs in with GitHub).
+#
+# ONE-TIME SETUP (after the repo exists on Pat's GitHub account):
+#   1. Set `repo:` below to Pat's "username/reponame".
+#   2. The `github` backend needs a tiny OAuth bridge because GitHub Pages is
+#      static. Easiest free path: deploy the official decap oauth proxy as a
+#      Cloudflare Worker and set `base_url:` below to its URL.
+#      (Alt: use Netlify Identity + git-gateway if the site ever moves to Netlify.)
+#   Until then, /admin will show a login screen but can't complete auth —
+#   the public site itself works fine without it.
+
+backend:
+  name: github
+  repo: patshandymanllc/patshandymanllc.github.io # Pat's repo
+  branch: main
+  # base_url: https://your-decap-oauth-worker.workers.dev # <-- set after deploying the OAuth bridge
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General"
+        file: "content/settings.json"
+        fields:
+          - { label: "Hero Headline", name: "heroTitle", widget: "string" }
+          - { label: "Hero Subtext", name: "heroSubtitle", widget: "text" }
+          - { label: "About Heading", name: "aboutTitle", widget: "string" }
+          - { label: "Phone (dial format, e.g. +16024026690)", name: "phone", widget: "string" }
+          - { label: "Phone (display format)", name: "phoneDisplay", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
+          - { label: "Instagram URL", name: "instagram", widget: "string", required: false }
+          - label: "Hours"
+            name: "hours"
+            widget: "list"
+            fields:
+              - { label: "Days", name: "days", widget: "string" }
+              - { label: "Time", name: "time", widget: "string" }
+
+  - name: "services"
+    label: "Services"
+    files:
+      - name: "list"
+        label: "Service List"
+        file: "content/services.json"
+        fields:
+          - label: "Services"
+            name: "services"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - label: "Icon"
+                name: "icon"
+                widget: "select"
+                options:
+                  - { label: "Wrench (general repairs)", value: "wrench" }
+                  - { label: "Droplet (plumbing)", value: "droplet" }
+                  - { label: "Fence (outdoor)", value: "fence" }
+                  - { label: "Saw (carpentry)", value: "saw" }
+                  - { label: "Bolt (electrical)", value: "bolt" }
+                  - { label: "Spray (maintenance)", value: "spray" }
+                  - { label: "Roller (painting)", value: "roller" }
+                  - { label: "TV (assembly/mounting)", value: "tv" }
+              - { label: "Description", name: "description", widget: "text" }
